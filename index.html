@@ -1,0 +1,1318 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manikandan | Creative Editor & Digital Freelancer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#040406;
+  --bg-soft:#080b11;
+  --panel:rgba(242,240,236,.03);
+  --white:#f2f0ec;
+  --muted:rgba(242,240,236,0.32);
+  --muted-2:rgba(242,240,236,0.55);
+  --line:rgba(242,240,236,0.07);
+  --line-strong:rgba(242,240,236,0.14);
+  --green:#25d366;
+  --accent-lime:#c8f000;
+  --accent-red:#ff1e1e;
+  --accent-blue:#9fb2c9;
+  --card-radius:16px;
+  --shadow-soft:0 18px 45px rgba(0,0,0,.25);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(900px 640px at 15% 86%, rgba(255,255,255,.03), transparent 60%),
+    linear-gradient(180deg, #050608 0%, #06070a 48%, #050608 100%);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  font-size:15px;
+  line-height:1.65;
+  overflow-x:hidden;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.22;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 70px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 1px, transparent 1px 70px);
+}
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.08;
+  background-image:radial-gradient(rgba(255,255,255,.7) .45px, transparent .45px);
+  background-size:3px 3px;
+}
+
+/* CURSOR - desktop only */
+@media(hover:hover){
+  body{cursor:none;}
+  #c{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;display:block;}
+  #cr{position:fixed;width:34px;height:34px;border:1px solid rgba(242,240,236,.18);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);display:block;}
+}
+#c,#cr{display:none;}
+.scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  width:0%;
+  height:3px;
+  background:linear-gradient(90deg,var(--accent-lime),#78a8ff);
+  z-index:1000;
+  box-shadow:0 0 16px rgba(120,168,255,.45);
+}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 3.5rem;background:rgba(4,4,6,0.85);backdrop-filter:blur(12px);}
+nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;padding:10px 22px;border-radius:999px;background:rgba(10,11,14,.92);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--white);text-decoration:none;}
+.nav-r{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
+.nl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;}
+.nl:hover{color:var(--white);}
+.nl.active{color:var(--white);}
+.nb{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--white);padding:9px 20px;text-decoration:none;transition:opacity .25s;white-space:nowrap;}
+.nb:hover{opacity:.82;}
+.wa-btn{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--green);padding:9px 20px;text-decoration:none;transition:opacity .25s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.wa-btn:hover{opacity:.85;}
+.wa-icon{width:14px;height:14px;fill:#fff;flex-shrink:0;}
+.nb,.wa-btn{
+  border:1px solid transparent;
+  border-radius:999px;
+  transition:transform .22s ease, box-shadow .22s ease, opacity .25s ease, border-color .22s ease;
+}
+.nb:hover,.wa-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(0,0,0,.28);
+}
+.nb:focus-visible,.wa-btn:focus-visible,.nl:focus-visible,.sample-link:focus-visible,.social-links a:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 2px rgba(120,168,255,.55);
+  border-radius:8px;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(1000px 620px at 82% 22%, rgba(255,255,255,.05), transparent 64%),
+    linear-gradient(180deg, #040507 0%, #07080b 48%, #050608 100%);
+}
+#cv{position:absolute;top:0;left:0;width:56%;height:100%;pointer-events:none;z-index:1;opacity:.58;}
+.hero-img{
+  position:absolute;
+  top:0;
+  right:0;
+  width:50%;
+  height:100%;
+  max-width:600px;
+  object-fit:contain;
+  object-position:right center;
+  opacity:.95;
+  filter:contrast(1.35) saturate(1.1) brightness(.95);
+  z-index:0;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:
+    radial-gradient(70% 70% at 82% 22%, rgba(255,255,255,.05), transparent 66%),
+    radial-gradient(82% 82% at 18% 30%, rgba(255,255,255,.03), transparent 70%),
+    linear-gradient(110deg, rgba(5,8,14,.3), transparent 52%);
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:
+    radial-gradient(circle at 52% 45%, transparent 40%, rgba(0,0,0,.45) 88%),
+    linear-gradient(to right, rgba(3,6,14,.72) 0%, rgba(3,6,14,.36) 46%, rgba(3,6,14,.12) 74%, rgba(3,6,14,0) 100%);
+  z-index:1;
+  pointer-events:none;
+}
+.hc{position:relative;z-index:3;width:50%;padding:80px;}
+.htag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;margin-bottom:1.5rem;opacity:.8;animation:up .7s ease forwards .15s;}
+.hname{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(4.7rem,12.1vw,13.2rem);
+  font-weight:700;line-height:.88;letter-spacing:-.03em;
+  color:var(--white);
+  opacity:0;animation:up .9s ease forwards .3s;
+}
+.hname::after{
+  content:'';
+  display:block;
+  width:78px;
+  height:4px;
+  margin-top:12px;
+  background:linear-gradient(90deg, var(--accent-lime), rgba(200,240,0,0));
+}
+.hdesc,.htagline{
+  color:#e0e0e0;
+  font-size:18px;
+  line-height:1.6;
+  max-width:500px;
+  margin-top:1.3rem;
+  opacity:0;animation:up .8s ease forwards .48s;
+  font-weight:300;
+}
+.cert-note{font-size:12px;color:#888;margin-top:10px;letter-spacing:.08em;text-transform:uppercase;}
+.subtext,.hero-subtle{color:#aaa;font-size:13px;margin-top:8px;}
+.hero-proof{
+  margin-top:16px;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1rem,1.6vw,1.25rem);
+  font-weight:700;
+  letter-spacing:.03em;
+  color:var(--white);
+}
+.slot-note{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted-2);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.hfoot{display:flex;align-items:flex-end;justify-content:space-between;margin-top:2.6rem;opacity:0;animation:up .8s ease forwards .6s;flex-wrap:wrap;gap:2rem;}
+.hstats{display:flex;gap:3rem;flex-wrap:wrap;}
+.stat-n{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:700;color:var(--white);line-height:1;display:block;}
+.stat-l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:5px;display:block;}
+.stat-l{color:var(--muted-2);}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:up .8s ease forwards .75s;}
+.insta-link{
+  display:inline-block;
+  margin-top:12px;
+  font-size:14px;
+  color:#aaa;
+  text-decoration:none;
+}
+.insta-link:hover{color:#fff;}
+
+/* SCROLL HINT */
+.scroll-hint{position:absolute;bottom:5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;opacity:0;animation:fadeIn .8s ease forwards 1.1s;}
+.scroll-hint span{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);}
+.sline{width:1px;height:48px;overflow:hidden;position:relative;}
+.sline::after{content:'';position:absolute;top:-100%;left:0;width:1px;height:100%;background:var(--white);animation:drop 1.8s ease infinite;}
+@keyframes drop{0%{top:-100%}100%{top:200%}}
+
+/* TICKER */
+.ticker{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:.9rem 0;
+  overflow:hidden;
+  background:linear-gradient(180deg, rgba(255,255,255,.015), rgba(255,255,255,.005));
+}
+.ti{display:flex;white-space:nowrap;animation:tick 22s linear infinite;}
+.ti span{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:0 2rem;}
+.ti .sep{color:rgba(242,240,236,.1);}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* RESULTS BAND */
+.results-band{
+  background:transparent;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.results-band::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.02), transparent 30%, rgba(255,255,255,.02) 70%, transparent),
+    radial-gradient(620px 200px at 50% 0%, rgba(120,160,220,.08), transparent 70%);
+}
+.rb-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);position:relative;z-index:1;}
+.rb-item{padding:3rem 2.5rem;background:var(--panel);}
+.rb-item+.rb-item{border-left:1px solid var(--line);}
+.rb-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.8rem,5vw,5rem);font-weight:700;line-height:1;color:var(--white);letter-spacing:-.03em;}
+.rb-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.5rem;display:block;}
+.rb-sub{font-size:12px;color:rgba(242,240,236,.52);margin-top:.3rem;line-height:1.6;}
+
+/* LAYOUT */
+.wrap{max-width:1240px;margin:0 auto;padding:0 3.5rem;}
+.sec{padding:7rem 0;border-top:1px solid var(--line);position:relative;}
+.sec::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.02), transparent 18%),
+    radial-gradient(700px 260px at 86% 0%, rgba(87,123,173,.06), transparent 60%);
+  opacity:.8;
+}
+.sec>.wrap{position:relative;z-index:1;}
+
+/* SECTION HEADER */
+.sh{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:end;border-bottom:1px solid var(--line);padding-bottom:3.5rem;margin-bottom:3.5rem;}
+.stag{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;display:block;}
+.stag{color:var(--accent-blue);}
+.stitle{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3.8rem);font-weight:500;line-height:1.05;color:var(--white);}
+.sbody{font-size:13px;color:var(--muted-2);line-height:1.9;max-width:380px;align-self:end;}
+
+/* WHO I HELP */
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.who-card{padding:2.5rem 2rem;border:1px solid var(--line);position:relative;overflow:hidden;transition:border-color .3s;}
+.who-card:hover{border-color:rgba(242,240,236,.2);box-shadow:var(--shadow-soft);}
+.who-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .5s;}
+.who-card:hover::after{transform:scaleX(1);}
+.who-emoji{font-size:20px;margin-bottom:1.2rem;display:block;}
+.who-type{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:500;color:var(--white);margin-bottom:.6rem;}
+.who-desc{font-size:12px;color:var(--muted-2);line-height:1.8;}
+
+/* CASE STUDY */
+.cs-wrap{background:var(--panel);border:1px solid var(--line);padding:3rem;border-radius:var(--card-radius);box-shadow:var(--shadow-soft);}
+.cs-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--line);}
+.cs-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:500;color:var(--white);margin-bottom:.5rem;line-height:1.1;}
+.cs-client{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-blue);margin-bottom:1.2rem;}
+.cs-meta{display:flex;gap:2rem;flex-wrap:wrap;}
+.cs-stat{display:flex;flex-direction:column;gap:3px;}
+.cs-stat-n{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:var(--white);line-height:1;}
+.cs-stat-l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.cs-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.cs-step{padding:1.5rem;border:1px solid var(--line);}
+.cs-step-num{font-size:10px;letter-spacing:.2em;color:var(--accent-blue);margin-bottom:.75rem;display:block;}
+.cs-step-title{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:500;color:var(--white);margin-bottom:.4rem;}
+.cs-step-desc{font-size:12px;color:var(--muted);line-height:1.7;}
+.positioning-box{border:1px solid var(--line);background:rgba(242,240,236,.02);padding:2rem;}
+.positioning-lead{font-size:13px;color:var(--muted);line-height:1.9;max-width:760px;}
+.positioning-list{margin-top:1.2rem;list-style:none;display:grid;gap:10px;}
+.positioning-list li{font-size:13px;color:var(--white);border:1px solid var(--line);padding:12px 14px;background:rgba(242,240,236,.02);}
+.positioning-result{margin-top:1.1rem;font-size:14px;color:var(--white);font-weight:500;}
+
+/* TESTIMONIALS */
+.testimonials{padding:80px 20px;text-align:center;}
+.testimonials h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:500;color:var(--white);margin-bottom:24px;}
+.testimonial{max-width:600px;margin:20px auto;color:#ccc;border:1px solid var(--line);padding:20px;background:var(--panel);border-radius:var(--card-radius);}
+.testimonial p{line-height:1.8;}
+.testimonial span{display:block;margin-top:10px;font-size:12px;color:var(--muted);letter-spacing:.05em;}
+.pricing{padding:80px 20px;text-align:center;}
+.price-card{border:1px solid #333;padding:30px;margin:20px;}
+
+/* WHAT I DO BEST */
+.what-best{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  padding:120px 40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+  animation:fadeUp .8s ease;
+}
+.wb-tag{font-size:12px;color:#888;margin-bottom:10px;}
+.wb-title{
+  font-size:64px;
+  font-weight:600;
+  color:#fff;
+  line-height:1.2;
+}
+.wb-title span{color:var(--accent-lime);}
+.wb-desc{
+  margin-top:25px;
+  font-size:18px;
+  color:#bbb;
+  line-height:1.7;
+  max-width:700px;
+}
+.highlight{background:#ffcc00;color:#000;padding:2px 6px;border-radius:4px;}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.proof-img{width:100%;margin-top:20px;border-radius:10px;opacity:.9;}
+
+/* DASHBOARD PREVIEW */
+.dash-wrap{margin-top:2px;border:1px solid var(--line);padding:2rem;background:rgba(242,240,236,.02);}
+.dash-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;display:block;}
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;}
+.dash-cell{padding:1.2rem 1rem;background:rgba(242,240,236,.03);border:1px solid var(--line);}
+.dash-cell-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.dash-cell-val{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:600;color:var(--white);}
+.dash-cell-sub{font-size:10px;color:rgba(242,240,236,.2);margin-top:2px;}
+.dash-bar-wrap{margin-top:1.5rem;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+.dash-bar-fill{height:3px;background:var(--white);border-radius:2px;animation:barGrow 1.5s ease forwards;}
+@keyframes barGrow{from{width:0}to{width:var(--w)}}
+
+/* WORK LIST */
+.work-list:hover .wr{opacity:.3;}
+.work-list:hover .wr:hover{opacity:1;}
+.wr{display:grid;grid-template-columns:52px 1fr 220px 120px 28px;gap:1.5rem;align-items:center;padding:1.8rem 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;position:relative;transition:opacity .3s;}
+.wr::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+.wr:hover::before{transform:scaleX(1);}
+.wn{font-size:11px;color:var(--muted);letter-spacing:.08em;}
+.wt{font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem,1.8vw,1.4rem);font-weight:500;color:var(--white);transition:letter-spacing .3s;}
+.wr:hover .wt{letter-spacing:.015em;}
+.ws{font-size:12px;color:var(--muted);}
+.wy{font-size:12px;color:var(--muted);letter-spacing:.05em;}
+.wa2{font-size:16px;color:var(--white);opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s;}
+.wr:hover .wa2{opacity:1;transform:translateX(0);}
+
+/* CLIENTS */
+.clients-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;}
+.cl{padding:2rem 1.5rem;border:1px solid var(--line);text-align:center;transition:border-color .35s,background .35s;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:.6rem;}
+.cl:hover{border-color:rgba(242,240,236,.2);background:rgba(242,240,236,.03);}
+.cl-num{font-size:10px;letter-spacing:.2em;color:var(--muted);}
+.cl-name{font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:500;color:var(--white);line-height:1.3;}
+.cl-cat{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.cl-arr{font-size:14px;color:var(--muted);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s;}
+.cl:hover .cl-arr{opacity:1;transform:translateY(0);}
+
+/* SERVICES BOX SECTION */
+.services-box-section{
+  padding:150px 20px;
+  max-width:900px;
+  margin:150px auto 0;
+}
+.services-box-section h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2rem,4vw,3rem);
+  color:#fff;
+  margin-bottom:30px;
+}
+.service-box{
+  background:var(--panel);
+  border-radius:var(--card-radius);
+  padding:50px;
+  margin-bottom:40px;
+  opacity:.35;
+  transform:translateY(50px);
+  transition:.6s ease;
+  display:block;
+  border:1px solid rgba(255,255,255,.06);
+}
+.service-box.active{
+  opacity:1;
+  transform:translateY(0);
+  border-color:var(--line-strong);
+  box-shadow:var(--shadow-soft);
+}
+.service-box:hover{border-color:var(--line-strong);}
+.service-box h3{
+  font-size:28px;
+  margin:15px 0;
+  color:#fff;
+}
+.service-box p{
+  color:#aaa;
+  line-height:1.6;
+}
+.service-box .stack{
+  margin-top:14px;
+  font-size:13px;
+  letter-spacing:.08em;
+  color:#8f8f8f;
+}
+.tag{
+  font-size:12px;
+  color:var(--accent-blue);
+}
+
+/* CERTIFICATIONS */
+.certifications{padding:70px 20px 20px;}
+.cert-wrap{max-width:1240px;margin:0 auto;border:1px solid var(--line);padding:28px;background:var(--panel);border-radius:var(--card-radius);}
+.cert-title{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;color:var(--white);margin-bottom:10px;}
+.cert-text{color:var(--muted-2);font-size:13px;line-height:1.8;}
+
+/* VIDEO SAMPLES */
+.samples{padding:70px 20px;}
+.samples-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.sample-card{border:1px solid var(--line);padding:24px;background:var(--panel);text-decoration:none;color:inherit;border-radius:var(--card-radius);box-shadow:var(--shadow-soft);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
+.sample-card:hover{transform:translateY(-4px);border-color:var(--line-strong);}
+.sample-card h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;color:var(--white);margin-bottom:8px;}
+.sample-card p{font-size:12px;color:var(--muted-2);line-height:1.7;}
+.sample-preview{
+  width:100%;
+  aspect-ratio:9/16;
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:14px;
+  background:#000;
+}
+.sample-preview iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+.sample-thumb{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:block;
+  text-decoration:none;
+  color:#fff;
+}
+.sample-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.sample-thumb::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15));
+}
+.play-badge{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:rgba(0,0,0,.65);
+  border:1px solid rgba(255,255,255,.35);
+  display:grid;
+  place-items:center;
+  font-size:20px;
+}
+.sample-link{
+  display:inline-block;
+  margin-top:8px;
+  font-size:12px;
+  color:var(--accent-blue);
+  text-decoration:none;
+}
+.sample-link:hover{color:var(--white);}
+
+/* PRICING */
+.pricing-sec{padding:70px 20px;}
+.pricing-wrap{max-width:1240px;margin:0 auto;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.price-card{border:1px solid var(--line);padding:28px;background:var(--panel);border-radius:var(--card-radius);}
+.price-name{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--white);}
+.price-value{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--white);margin:10px 0 14px;}
+.price-desc{font-size:12px;color:var(--muted);line-height:1.7;}
+
+/* WHY ME */
+.why-me{padding:70px 20px;}
+.why-wrap{max-width:1240px;margin:0 auto;}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.why-item{border:1px solid var(--line);padding:22px;background:rgba(242,240,236,.02);}
+.why-item h4{font-family:'Space Grotesk',sans-serif;color:var(--white);font-size:.95rem;margin-bottom:8px;}
+.why-item p{font-size:12px;color:var(--muted);line-height:1.7;}
+
+/* VIDEO WORK */
+.video-work{padding:70px 20px;text-align:center;}
+.video-work h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:500;color:var(--white);margin-bottom:20px;}
+.video-work video{margin:10px;border:1px solid var(--line);border-radius:8px;background:#000;}
+
+/* SIMPLE WHY ME + SOCIAL */
+.why-me h2{font-family:'Space Grotesk',sans-serif;color:var(--white);font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:16px;}
+.why-me ul{list-style:none;max-width:900px;margin:0 auto;}
+.why-me li{margin:10px 0;color:#ccc;}
+.social-links{display:flex;justify-content:center;gap:20px;padding:24px 20px 40px;}
+.social-links{
+  margin-top:20px;
+  justify-content:flex-start;
+  padding:24px 20px 40px;
+  border-top:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.01), transparent 70%);
+}
+.social-links a{margin-right:15px;color:#aaa;text-decoration:none;border:none;padding:0;font-size:14px;letter-spacing:0;text-transform:none;}
+.social-links a:hover{color:#fff;}
+.floating-cta{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25d366;
+  color:#fff;
+  padding:14px 18px;
+  border-radius:999px;
+  font-size:13px;
+  z-index:999;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+  text-decoration:none;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+/* SKILLS */
+.sk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.sk{padding:2.2rem 2rem;border:1px solid var(--line);position:relative;overflow:hidden;transition:border-color .3s;}
+.sk:hover{border-color:rgba(242,240,236,.18);}
+.sk::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .5s;}
+.sk:hover::after{transform:scaleX(1);}
+.sk-num{font-size:10px;letter-spacing:.2em;color:var(--muted);margin-bottom:1.5rem;display:block;}
+.sk-name{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:500;color:var(--white);margin-bottom:1rem;}
+.sk-track{height:1px;background:var(--line);}
+.sk-fill{height:1px;background:var(--white);width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1);}
+.sk-pct{font-size:11px;color:var(--muted);margin-top:7px;display:block;}
+
+/* EXP */
+.exp-row{display:grid;grid-template-columns:180px 1fr 100px;gap:3rem;padding:3rem 0;border-bottom:1px solid var(--line);}
+.ep{font-size:12px;color:var(--muted);}
+.ec{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.et{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.2rem,2vw,1.9rem);font-weight:500;color:var(--white);line-height:1.1;margin-bottom:.6rem;}
+.ed{font-size:13px;color:var(--muted);line-height:1.9;max-width:480px;}
+.etags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem;}
+.etag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);color:var(--muted);padding:4px 11px;}
+.ei{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,5vw,5.5rem);font-weight:700;color:rgba(242,240,236,.04);line-height:1;text-align:right;}
+
+/* CONTACT */
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:7rem 0;}
+.ct-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,7vw,7.5rem);font-weight:700;line-height:.88;letter-spacing:-.03em;color:var(--white);}
+.ct-intro{font-size:13px;color:var(--muted-2);line-height:1.9;margin-bottom:2.5rem;max-width:360px;}
+.ct-row{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 0;border-bottom:1px solid var(--line);}
+.ct-lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-blue);}
+.ct-val{font-size:13px;color:var(--white);text-decoration:none;transition:color .25s;}
+.ct-val:hover{color:var(--muted);}
+.ct-ctas{display:flex;gap:12px;margin-top:2rem;flex-wrap:wrap;}
+.form-box {
+  max-width: 500px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.form-box input,
+.form-box select,
+.form-box textarea {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+  color: var(--white);
+  font-size: 14px;
+}
+.form-box textarea {
+  min-height: 120px;
+  resize: none;
+}
+.form-box button {
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(90deg, #25d366, #1ebe5d);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+.form-box button:hover { opacity: 0.9; }
+.form-note {
+  font-size: 12px;
+  color: #ffcc00;
+  text-align: center;
+}
+
+/* FOOTER */
+footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1.8rem 3.5rem;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--muted);
+  flex-wrap:wrap;
+  gap:1rem;
+  background:
+    radial-gradient(520px 220px at 15% 0%, rgba(255,255,255,.05), transparent 70%),
+    linear-gradient(180deg, rgba(255,255,255,.015), transparent 70%);
+}
+footer p:first-child{
+  color:var(--muted-2);
+}
+
+/* ANIMS */
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.r{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease;}
+.r.in{opacity:1;transform:none;}
+
+/* MOBILE */
+@media(max-width:1024px){
+  .svc-grid{grid-template-columns:repeat(2,1fr);}
+  .sk-grid{grid-template-columns:repeat(2,1fr);}
+  .clients-grid{grid-template-columns:repeat(3,1fr);}
+  .who-grid{grid-template-columns:repeat(2,1fr);}
+  .cs-steps{grid-template-columns:1fr 1fr;}
+  .dash-grid{grid-template-columns:repeat(2,1fr);}
+  .samples-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr 1fr;}
+  .why-grid{grid-template-columns:1fr 1fr;}
+  .rb-item+.rb-item{border-left:none;border-top:1px solid var(--line);}
+}
+@media(max-width:768px){
+  nav{padding:1.2rem 1.2rem;}
+  nav.scrolled{top:12px;left:12px;right:12px;transform:none;width:auto;padding:1rem;border-radius:18px;}
+  .nl{display:none;}
+  .nav-r{gap:8px;}
+  .nb,.wa-btn{padding:8px 14px;font-size:10px;}
+  .hero{height:100svh;}
+  #cv{display:none;}
+  .hero-img{width:100%;height:100%;right:0;left:auto;top:0;transform:none;opacity:.38;}
+  .hc{width:100%;padding:80px 20px 24px;}
+  .hname{font-size:clamp(3.4rem,16vw,7rem);line-height:.9;}
+  .htagline{font-size:14px;max-width:100%;}
+  .hero::before{background:linear-gradient(to bottom,rgba(4,4,6,.28) 0%,rgba(4,4,6,.92) 72%);}
+  .hero::after{display:none;}
+  .hstats{gap:1.5rem;}
+  .stat-n{font-size:1.8rem;}
+  .wrap{padding:0 1.2rem;}
+  .sec{padding:4.5rem 0;}
+  .sh{grid-template-columns:1fr;gap:1.5rem;}
+  .sh .sbody{max-width:100%;}
+  .wr{grid-template-columns:36px 1fr 24px;gap:.75rem;}
+  .ws,.wy{display:none;}
+  .svc-grid,.sk-grid,.who-grid{grid-template-columns:1fr;}
+  .clients-grid{grid-template-columns:repeat(2,1fr);}
+  .exp-row{grid-template-columns:1fr;gap:.75rem;}
+  .ei{display:none;}
+  .ct-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .ct-big{font-size:clamp(2.5rem,10vw,5rem);}
+  .cs-top{grid-template-columns:1fr;gap:1.5rem;}
+  .cs-steps{grid-template-columns:1fr;}
+  .dash-grid{grid-template-columns:repeat(2,1fr);}
+  .results-band .rb-inner{grid-template-columns:1fr;}
+  .rb-item+.rb-item{border-left:none;border-top:1px solid var(--line);}
+  footer{flex-direction:column;text-align:center;padding:1.5rem 1.2rem;}
+  .scroll-hint{display:none;}
+  .hero-ctas{margin-top:1.5rem;}
+  .hero-ctas .nb,.hero-ctas .wa-btn{padding:12px 20px;font-size:12px;}
+  .ct-ctas .wa-btn,.ct-ctas .nb{
+    width:100%;
+    text-align:center;
+    justify-content:center;
+  }
+  .form-box{max-width:100%;}
+  .samples-grid,.pricing-grid,.why-grid{grid-template-columns:1fr;}
+  .what-best{padding:80px 20px;}
+  .wb-title{font-size:clamp(2.2rem,10vw,3.2rem);}
+  .wb-desc{font-size:16px;max-width:100%;}
+  .floating-cta{bottom:14px;right:14px;padding:12px 16px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<div id="c"></div>
+<div id="cr"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav>
+  <a href="#" class="logo">MANIKANDAN</a>
+  <div class="nav-r">
+    <a href="#work" class="nl">Work</a>
+    <a href="#services" class="nl">Services</a>
+    <a href="#reviews" class="nl">Projects</a>
+    <a href="#contact" class="nl">Contact</a>
+    <a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="wa-btn" target="_blank" rel="noopener">Start Your Campaign</a>
+    <a href="mailto:dhonimani7mdu@gmail.com?subject=Creative%20Support" class="nb">Get Creative Support</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="cv"></canvas>
+  <div class="hc">
+    <p class="htag">Creative Strategist for Growth-Focused Brands</p>
+    <h1 class="hname">Manikandan</h1>
+    <p class="htagline">I build high-converting creatives for healthcare brands, education businesses, and local services - turning content into enquiries, patients, and revenue.</p>
+    <p class="hero-subtle">Most brands post content. I build systems that generate responses.</p>
+    <p class="hero-proof">Worked with healthcare brands, creators & local businesses | 4+ years in editing, content & performance-driven creatives</p>
+    <div class="hfoot">
+      <div class="hstats">
+        <div>
+          <span class="stat-n">4+</span>
+          <span class="stat-l">Years Experience</span>
+        </div>
+        <div>
+          <span class="stat-n">5+</span>
+          <span class="stat-l">Industries Worked</span>
+        </div>
+        <div>
+          <span class="stat-n">100+</span>
+          <span class="stat-l">Creative Deliverables</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-ctas"><a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="wa-btn" target="_blank" rel="noopener">Discuss Your Project</a><a href="mailto:dhonimani7mdu@gmail.com?subject=Creative%20Support" class="nb">Get Creative Support</a></div>
+    <p class="slot-note">⚠ Currently working with limited brands only - 2-3 slots available this month.</p>
+    <a href="https://www.instagram.com/manikandan._editor/" target="_blank" class="insta-link" rel="noopener">View My Instagram →</a>
+  </div>
+  <img src="manikandan.jpg" class="hero-img" alt="Manikandan portrait">
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="sline"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ti">
+    <span>Video Editing</span><span class="sep">/</span><span>Creative Design</span><span class="sep">/</span><span>Content Strategy</span><span class="sep">/</span><span>Ad Creatives</span><span class="sep">/</span><span>Reels & Short-form</span><span class="sep">/</span><span>Campaign Support</span><span class="sep">/</span><span>Storytelling</span><span class="sep">/</span><span>Performance Creatives</span><span class="sep">/</span>
+    <span>Video Editing</span><span class="sep">/</span><span>Creative Design</span><span class="sep">/</span><span>Content Strategy</span><span class="sep">/</span><span>Ad Creatives</span><span class="sep">/</span><span>Reels & Short-form</span><span class="sep">/</span><span>Campaign Support</span><span class="sep">/</span><span>Storytelling</span><span class="sep">/</span><span>Performance Creatives</span><span class="sep">/</span>
+  </div>
+</div>
+<!-- RESULTS BAND -->
+<div class="results-band">
+  <div class="rb-inner">
+    <div class="rb-item r"><div class="rb-big">4+</div><span class="rb-label">Years in Creative Work</span><div class="rb-sub">Editing, content production, and performance-driven creatives</div></div>
+    <div class="rb-item r"><div class="rb-big">100+</div><span class="rb-label">Creative Assets Delivered</span><div class="rb-sub">Reels, ad videos, posts, and campaign creatives across niches</div></div>
+    <div class="rb-item r"><div class="rb-big">5+</div><span class="rb-label">Industries Served</span><div class="rb-sub">Healthcare, creators, local businesses, education, and wellness</div></div>
+  </div>
+</div>
+<!-- WHO I HELP -->
+<div class="sec" id="about">
+  <div class="wrap">
+    <div class="sh r">
+      <div>
+        <span class="stag">// About</span>
+        <h2 class="stitle">Who I work with.</h2>
+      </div>
+      <p class="sbody">Focused on businesses where content directly impacts revenue and growth.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card r">
+        <div class="who-type">Hospitals & Clinics</div>
+        <p class="who-desc">Patient-focused creatives designed to increase enquiries and consultations.</p>
+      </div>
+      <div class="who-card r">
+        <div class="who-type">Dental & Healthcare Brands</div>
+        <p class="who-desc">Educational + conversion-based content that builds trust and drives action.</p>
+      </div>
+      <div class="who-card r">
+        <div class="who-type">Educational Institutes</div>
+        <p class="who-desc">Admissions-focused creatives that attract parents and students.</p>
+      </div>
+      <div class="who-card r">
+        <div class="who-type">Local Businesses</div>
+        <p class="who-desc">Content built to generate leads, calls, and walk-ins.</p>
+      </div>
+      <div class="who-card r">
+        <div class="who-type">Growth-Focused Brands</div>
+        <p class="who-desc">Structured creative support for brands that want measurable business outcomes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sec">
+  <div class="wrap">
+    <div class="cs-wrap r">
+      <div class="cs-client">// What happens when you work with me</div>
+      <div class="cs-title">This is not content creation.</div>
+      <p style="font-size:18px;color:#aaa;margin-top:10px;">→ Attention → Engagement → Enquiries → Revenue</p>
+      <p style="margin-top:20px;color:#ccc;">Every creative is built with a clear purpose - not just to look good, but to drive action.</p>
+      <p style="margin-top:20px;font-size:22px;line-height:1.5;color:var(--white);font-weight:600;">I don’t just edit content.<br>I build creatives that make people take action.</p>
+    </div>
+  </div>
+</div>
+<!-- CASE STUDY -->
+<div class="sec" id="reviews">
+  <div class="wrap">
+    <div class="sh r">
+      <div>
+        <span class="stag">// Projects</span>
+        <h2 class="stitle">Creative campaigns<br>and content execution.</h2>
+      </div>
+      <p class="sbody">Selected projects focused on creative quality, audience engagement, and campaign consistency.</p>
+    </div>
+
+    <div class="cs-wrap r">
+      <div class="cs-top">
+        <div>
+          <div class="cs-client">// Featured Project</div>
+          <div class="cs-title">Healthcare Campaign</div>
+          <p style="font-size:13px;color:var(--muted);margin-top:.75rem;line-height:1.8;">Structured creative strategy focused on enquiries and response quality for a hospital brand.</p>
+        </div>
+        <div>
+          <div class="cs-step">
+            <span class="cs-step-num">Problem</span>
+            <p class="cs-step-desc">Low patient enquiries despite regular posting.</p>
+          </div>
+          <div class="cs-step" style="margin-top:10px;">
+            <span class="cs-step-num">Action</span>
+            <p class="cs-step-desc">Created hook-based video creatives with a clear WhatsApp CTA.</p>
+          </div>
+          <div class="cs-step" style="margin-top:10px;">
+            <span class="cs-step-num">Result</span>
+            <p class="cs-step-desc">↑ 2x enquiry volume within 30 days.<br>↓ Cost per enquiry improved.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cs-wrap r" style="margin-top:2rem;">
+      <div class="cs-client">// Additional Case Study</div>
+      <div class="cs-title">Dental Campaign</div>
+      <p class="cs-step-desc" style="margin-top:.6rem;">Designed and executed localized content and creatives focused on patient awareness and action.</p>
+    </div>
+
+    <div class="cs-wrap r" style="margin-top:2rem;">
+      <div class="cs-client">// Additional Case Study</div>
+      <div class="cs-title">Ayurveda Wellness Campaign</div>
+      <p class="cs-step-desc" style="margin-top:.6rem;">Created consistent consultation content with offer-driven creatives and retargeting support.</p>
+    </div>
+
+    <div class="cs-wrap r" style="margin-top:2rem;">
+      <div class="cs-client">// Additional Case Study</div>
+      <div class="cs-title">G.B Public School - Admissions Campaign</div>
+      <p class="cs-step-desc" style="margin-top:.6rem;">Produced parent-focused creatives and campaign content to improve admissions visibility and response quality.</p>
+      <img src="ads-proof.png" class="proof-img" alt="School campaign project proof">
+      <p style="color:#888;font-size:12px;margin-top:10px;">Real project snapshot (sensitive details hidden)</p>
+    </div>
+
+    <section class="testimonials r">
+      <h2>Client Feedback</h2>
+      <div class="testimonial">
+        <p>"We started getting consistent patient enquiries after working with him."</p>
+        <span>— Client</span>
+      </div>
+      <div class="testimonial">
+        <p>"Creatives actually brought leads — not just views."</p>
+        <span>— Business Owner</span>
+      </div>
+    </section>
+  </div>
+</div>
+<!-- CLIENTS -->
+<div class="sec">
+  <div class="wrap">
+    <div class="sh r">
+      <div>
+        <span class="stag">// Portfolio - Healthcare Brands</span>
+        <h2 class="stitle">Brands and pages<br>under management.</h2>
+      </div>
+      <p class="sbody">Selected accounts where I support strategy, creatives, content execution, and campaign optimization.</p>
+    </div>
+    <div class="clients-grid">
+      <a class="cl r" href="https://www.instagram.com/adhiparasakthihospitals/" target="_blank" rel="noopener"><span class="cl-num">01</span><span class="cl-name">Adhiparasakthi Hospitals</span><span class="cl-cat">Hospital</span><span class="cl-arr">-></span></a>
+      <a class="cl r" href="https://www.instagram.com/ap.dentals/" target="_blank" rel="noopener"><span class="cl-num">02</span><span class="cl-name">AP Dentals</span><span class="cl-cat">Dental Clinic</span><span class="cl-arr">-></span></a>
+      <a class="cl r" href="https://www.instagram.com/dr.premkumar_bds/" target="_blank" rel="noopener"><span class="cl-num">03</span><span class="cl-name">Dr. Premkumar BDS</span><span class="cl-cat">Dental</span><span class="cl-arr">-></span></a>
+      <a class="cl r" href="https://www.instagram.com/ardent_mds/" target="_blank" rel="noopener"><span class="cl-num">04</span><span class="cl-name">Ardent MDS</span><span class="cl-cat">Healthcare</span><span class="cl-arr">-></span></a>
+      <a class="cl r" href="https://www.instagram.com/suyambu.ayurveda/" target="_blank" rel="noopener"><span class="cl-num">05</span><span class="cl-name">Suyambu Ayurveda</span><span class="cl-cat">Wellness</span><span class="cl-arr">-></span></a>
+    </div>
+  </div>
+</div>
+<!-- WORK - TV -->
+<div class="sec" id="work">
+  <div class="wrap">
+    <div class="sh r">
+      <div>
+        <span class="stag">// Foundation - Editorial Background</span>
+        <h2 class="stitle">Storytelling discipline<br>behind campaign creatives.</h2>
+      </div>
+      <p class="sbody">Years in high-pressure TV post-production shaped how I structure hooks, pacing, and visual narrative for performance ads.</p>
+    </div>
+    <div class="work-list">
+      <a class="wr r" href="https://www.hotstar.com/in/shows/kaatrukkenna-veli/1260051971" target="_blank" rel="noopener"><span class="wn">01</span><span class="wt">Kaatrukkenna Veli</span><span class="ws">Endemol Shine India</span><span class="wy">2021-2023</span><span class="wa2">-></span></a>
+      <a class="wr r" href="https://www.hotstar.com/in/shows/thaenmozhi-ba/1260009577" target="_blank" rel="noopener"><span class="wn">02</span><span class="wt">THaenmozhi</span><span class="ws">Endemol Shine India</span><span class="wy">2021-2023</span><span class="wa2">-></span></a>
+      <a class="wr r" href="https://www.zee5.com/tv-shows/details/sathya/0-6-1339" target="_blank" rel="noopener"><span class="wn">03</span><span class="wt">Sathya Rajammal</span><span class="ws">Rajammal Creations</span><span class="wy">2020-2021</span><span class="wa2">-></span></a>
+      <a class="wr r" href="https://www.hotstar.com/in/shows/eeramaana-rojaavey/18198" target="_blank" rel="noopener"><span class="wn">04</span><span class="wt">Eeramaana Rojaave</span><span class="ws">Signature Productionz</span><span class="wy">2019-2020</span><span class="wa2">-></span></a>
+    </div>
+  </div>
+</div>
+<section class="what-best">
+  <p class="wb-tag">/ Services, Skills, Abilities</p>
+  <h2 class="wb-title">
+    What I do <span>best?</span>
+  </h2>
+  <p class="wb-desc">
+I create content systems that turn attention into engagement and engagement into business momentum.
+From hospitals to schools, my focus is simple: improve creative quality, strengthen engagement, and deliver consistent results.
+</p>
+</section>
+<!-- SERVICES -->
+<div class="sec" id="services">
+  <div class="wrap">
+    <section class="services-box-section">
+      <h2>What I Can Do For You</h2>
+
+      <div class="service-box active">
+        <p class="tag">Top performing</p>
+        <h3>01. High-Converting Ad Creatives</h3>
+        <p>
+          Scroll-stopping creatives designed to capture attention and drive action, not just look good.
+        </p>
+        <p class="stack">Photoshop · Illustrator · Figma · Canva · AI Tools</p>
+      </div>
+
+      <div class="service-box">
+        <p class="tag">Top performing</p>
+        <h3>02. Short-Form Video for Ads</h3>
+        <p>
+          Retention-focused videos built for engagement and conversions.
+        </p>
+        <p class="stack">Premiere Pro · After Effects · Motion Graphics · AI Video Tools</p>
+      </div>
+
+      <div class="service-box">
+        <p class="tag">Top performing</p>
+        <h3>03. Content Creation</h3>
+        <p>
+          Ideas, hooks, scripting and execution - everything needed to create engaging content.
+        </p>
+        <p class="stack">Content Planning · Hook Writing · Scripting · Execution</p>
+      </div>
+
+      <div class="service-box">
+        <p class="tag">Top performing</p>
+        <h3>04. Ads & Campaign Support</h3>
+        <p>
+          From creatives to execution - I help build campaigns that actually perform.
+        </p>
+        <p class="stack">Creative Strategy · Campaign Setup · Testing Support · Reporting</p>
+      </div>
+    </section>
+  </div>
+</div>
+<section class="certifications">
+  <div class="cert-wrap r">
+    <div class="cert-title">Certifications & Credibility</div>
+    <p class="cert-text">Meta Ads Specialist (in progress) | Performance marketing practitioner with real-world dashboard proof across healthcare, education, and local business campaigns.</p>
+  </div>
+</section>
+<section class="samples">
+  <div class="samples-grid">
+    <div class="sample-card r">
+      <div class="sample-preview">
+        <a class="sample-thumb" href="https://youtube.com/shorts/MC0bpJnQ0pc?si=KGjoAkH3A14heW4i" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/MC0bpJnQ0pc/hqdefault.jpg" alt="Reel Ad Sample 01 preview">
+          <span class="play-badge">▶</span>
+        </a>
+      </div>
+      <h3>Reel Ad Sample 01</h3>
+      <p>Hook-driven short-form creative focused on stronger watch time and audience action.</p>
+      <a class="sample-link" href="https://youtube.com/shorts/MC0bpJnQ0pc?si=KGjoAkH3A14heW4i" target="_blank" rel="noopener">Open full video</a>
+    </div>
+    <div class="sample-card r">
+      <div class="sample-preview">
+        <iframe src="https://www.instagram.com/reel/DSyyYBUCIy_/embed" title="Reel Ad Sample 02" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <h3>Reel Ad Sample 02</h3>
+      <p>Before/after format creative optimized for retention and engagement.</p>
+      <a class="sample-link" href="https://www.instagram.com/reel/DSyyYBUCIy_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener">Open full video</a>
+    </div>
+    <div class="sample-card r">
+      <div class="sample-preview">
+        <a class="sample-thumb" href="https://www.youtube.com/shorts/ncDVwZ9lmak" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/ncDVwZ9lmak/hqdefault.jpg" alt="Reel Ad Sample 03 preview">
+          <span class="play-badge">▶</span>
+        </a>
+      </div>
+      <h3>Reel Ad Sample 03</h3>
+      <p>Offer-led video creative with WhatsApp CTA.</p>
+      <a class="sample-link" href="https://www.youtube.com/shorts/ncDVwZ9lmak" target="_blank" rel="noopener">Open full video</a>
+    </div>
+  </div>
+</section>
+<section class="pricing-sec">
+  <div class="pricing-wrap">
+    <div class="sh r">
+      <div>
+        <span class="stag">// Project Collaboration</span>
+        <h2 class="stitle">Flexible freelance support.</h2>
+      </div>
+      <p class="sbody">Available for one-time projects, ongoing editing, content creation, and campaign creative support.</p>
+      <p style="margin-bottom:20px;color:#ccc;">Choose what you need — or I’ll guide you.</p>
+      <p style="font-size:12px;color:#ffcc00;margin-top:8px;">⚠ Only 2–3 client slots available this month</p>
+    </div>
+  </div>
+</section>
+<div class="sec">
+  <div class="wrap">
+    <div class="sh r">
+      <div>
+        <span class="stag">// Why Me</span>
+        <h2 class="stitle">Why brands choose me.</h2>
+      </div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><h4>Performance First</h4><p>Every creative is designed for enquiries, not just views.</p></div>
+      <div class="why-item"><h4>Marketing Thinking</h4><p>I don’t just edit — I structure content for conversion.</p></div>
+      <div class="why-item"><h4>Industry Experience</h4><p>Worked with healthcare, education, and local businesses.</p></div>
+      <div class="why-item"><h4>End-to-End Support</h4><p>From idea → execution → campaign creatives.</p></div>
+    </div>
+  </div>
+</div>
+<!-- EXPERIENCE -->
+<div class="sec">
+  <div class="wrap">
+    <div class="sh r">
+      <div>
+        <span class="stag">// Experience</span>
+        <h2 class="stitle">Editing foundation<br>to digital execution.</h2>
+      </div>
+      <p class="sbody">Before freelancing, I worked in TV production handling high-volume editing under tight deadlines. That built speed, storytelling instinct, and audience understanding.</p>
+    </div>
+    <div class="exp-row r">
+      <div><div class="ep">2023 - Present</div><div class="ec">Freelance</div></div>
+      <div>
+        <div class="et">Creative Editor & Digital Freelancer</div>
+        <p class="ed">Now I apply TV editing discipline to digital content, ad creatives, and campaign execution for brands, creators, and businesses.</p>
+        <div class="etags"><span class="etag">Editing</span><span class="etag">Creative Design</span><span class="etag">Content Strategy</span><span class="etag">Campaign Support</span></div>
+      </div>
+      <div class="ei">01</div>
+    </div>
+    <div class="exp-row r">
+      <div><div class="ep">2021 - 2023</div><div class="ec">Endemol Shine India</div></div>
+      <div>
+        <div class="et">Senior Video Editor - TV</div>
+        <p class="ed">Delivered high-volume edits under strict broadcast deadlines, building creative speed and audience-retention instincts used in ad production.</p>
+        <div class="etags"><span class="etag">Thaenmozhi</span><span class="etag">Kaatrukkenna Veli</span></div>
+      </div>
+      <div class="ei">02</div>
+    </div>
+    <div class="exp-row r">
+      <div><div class="ep">2020 - 2021</div><div class="ec">Rajammal Creations</div></div>
+      <div>
+        <div class="et">Video Editor</div>
+        <p class="ed">Handled end-to-end post-production and narrative pacing, improving clarity and attention management in long-format storytelling.</p>
+        <div class="etags"><span class="etag">Sathya</span></div>
+      </div>
+      <div class="ei">03</div>
+    </div>
+    <div class="exp-row r">
+      <div><div class="ep">2019 - 2020</div><div class="ec">Signature Productionz</div></div>
+      <div>
+        <div class="et">Video Editor</div>
+        <p class="ed">Built foundational production discipline under tight timelines and quality constraints that now translate into reliable campaign execution.</p>
+        <div class="etags"><span class="etag">Eeramaana Rojaave</span></div>
+      </div>
+      <div class="ei">04</div>
+    </div>
+  </div>
+</div>
+<!-- CONTACT -->
+<div style="border-top:1px solid var(--line);" id="contact">
+  <div class="wrap">
+    <div class="ct-grid">
+      <div class="r">
+        <h2 class="ct-big">Let’s build something that brings results.</h2>
+      </div>
+      <div class="r">
+        <p class="ct-intro">If you're serious about growing your brand with high-performing creatives — let’s work.</p>
+        <p style="margin-top:10px;font-size:12px;color:#aaa;">✔ Get content ideas + strategy → then decide</p>
+        <div class="ct-row"><span class="ct-lbl">Email</span><a href="mailto:dhonimani7mdu@gmail.com" class="ct-val">dhonimani7mdu@gmail.com</a></div>
+        <div class="ct-row"><span class="ct-lbl">Phone</span><a href="tel:+919940909972" class="ct-val">+91 99409 09972</a></div>
+        <div class="ct-row"><span class="ct-lbl">Location</span><span class="ct-val">Madurai, Tamil Nadu</span></div>
+        <div class="ct-row"><span class="ct-lbl">LinkedIn</span><a href="https://www.linkedin.com/" class="ct-val" target="_blank" rel="noopener">linkedin.com/in/your-profile</a></div>
+        <div class="ct-row"><span class="ct-lbl">Instagram</span><a href="https://www.instagram.com/manikandan._editor/" class="ct-val" target="_blank" rel="noopener">@manikandan._editor</a></div>
+        <div class="ct-row"><span class="ct-lbl">Availability</span><span class="ct-val">Taking limited campaigns per month</span></div>
+        <div class="ct-ctas">
+          <a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="wa-btn" target="_blank" rel="noopener">Discuss your project</a>
+          <a href="mailto:dhonimani7mdu@gmail.com?subject=Creative%20Support" class="nb">Get creative support</a>
+          <a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20Let%27s%20start%20my%20campaign." class="nb" target="_blank" rel="noopener">Start your campaign</a>
+        </div>
+        <div class="form-box">
+          <input id="name" type="text" placeholder="Your Name *">
+          <input id="phone" type="tel" placeholder="Phone Number *">
+          <select id="service">
+            <option value="">Select Service *</option>
+            <option>Ad Creatives</option>
+            <option>Video Editing</option>
+            <option>Content Strategy</option>
+            <option>Campaign Support</option>
+          </select>
+          <textarea id="message" placeholder="Tell me about your project..."></textarea>
+          <button type="button" onclick="sendToWhatsApp()">Get Free Strategy → Then Decide</button>
+          <p class="form-note">⚠ Only limited slots available this month</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="floating-cta" target="_blank" rel="noopener">Chat Now</a>
+<div class="social-links">
+  <a href="https://www.instagram.com/manikandan._editor/" target="_blank" rel="noopener">Instagram</a>
+  <a href="https://wa.me/919940909972" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+<footer>
+  <p>Creative Editor & Digital Freelancer - Content that blends storytelling, design and performance.</p>
+  <p>Madurai, India</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// CURSOR (desktop only)
+if(window.matchMedia('(hover:hover)').matches){
+  const c=document.getElementById('c'),cr=document.getElementById('cr');
+  c.style.display='block';cr.style.display='block';
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+}
+
+// THREE.JS
+(function(){
+  const canvas=document.getElementById('cv');
+  if(!canvas)return;
+  const par=canvas.parentElement;
+  let W=par.offsetWidth*.58,H=par.offsetHeight;
+  if(W<1||H<1)return;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(W,H);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(42,W/H,.1,100);
+  camera.position.z=5.8;
+
+  const mesh=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.7,1),
+    new THREE.MeshBasicMaterial({color:0xf2f0ec,wireframe:true,opacity:.07,transparent:true})
+  );
+  scene.add(mesh);
+  scene.add(new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.64,1),
+    new THREE.MeshBasicMaterial({color:0x040406,transparent:true,opacity:.97})
+  ));
+
+  function addRing(r,op,rx2,ry2){
+    const m=new THREE.Mesh(new THREE.TorusGeometry(r,.004,2,100),new THREE.MeshBasicMaterial({color:0xf2f0ec,opacity:op,transparent:true}));
+    m.rotation.x=rx2;m.rotation.y=ry2;scene.add(m);return m;
+  }
+  const r1=addRing(2.4,.05,Math.PI/2.3,0);
+  const r2=addRing(2.8,.03,0,Math.PI/2.5);
+
+  const pts=[];
+  for(let i=0;i<200;i++){const phi=Math.acos(-1+2*Math.random()),th=2*Math.PI*Math.random(),rr=2.8+Math.random()*2;pts.push(Math.sin(phi)*Math.cos(th)*rr,Math.sin(phi)*Math.sin(th)*rr,Math.cos(phi)*rr);}
+  const pg=new THREE.BufferGeometry();
+  pg.setAttribute('position',new THREE.Float32BufferAttribute(pts,3));
+  scene.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0xffffff,size:.02,opacity:.18,transparent:true})));
+
+  let mouseX=0,mouseY=0;
+  document.addEventListener('mousemove',e=>{mouseX=(e.clientX/innerWidth-.5)*1.5;mouseY=-(e.clientY/innerHeight-.5)*1.5;});
+
+  function animate(t){
+    requestAnimationFrame(animate);
+    const s=t*.001;
+    mesh.rotation.x=s*.1+mouseY*.12;
+    mesh.rotation.y=s*.16+mouseX*.18;
+    r1.rotation.z=s*.06;r2.rotation.x=s*.04;
+    renderer.render(scene,camera);
+  }
+  animate(0);
+
+  window.addEventListener('resize',()=>{
+    W=par.offsetWidth*.58;H=par.offsetHeight;
+    if(W<1||H<1)return;
+    renderer.setSize(W,H);camera.aspect=W/H;camera.updateProjectionMatrix();
+  });
+})();
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      const f=e.target.querySelector('.sk-fill');
+      if(f)f.style.width=(e.target.dataset.pct||80)+'%';
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:.08,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.r').forEach((el,i)=>{
+  el.style.transitionDelay=(i%4*.07)+'s';
+  obs.observe(el);
+});
+
+const boxes=document.querySelectorAll(".services-box-section .service-box");
+window.addEventListener("scroll",()=>{
+  if(!boxes.length) return;
+  const trigger=window.innerHeight*.6;
+  boxes.forEach((box)=>{
+    const top=box.getBoundingClientRect().top;
+    if(top<trigger){
+      boxes.forEach(b=>b.classList.remove("active"));
+      box.classList.add("active");
+    }
+  });
+});
+
+window.addEventListener('scroll',function(){
+  const nav=document.querySelector('nav');
+  if(!nav)return;
+  const current=window.scrollY;
+  if(current>80){
+    nav.classList.add('scrolled');
+  }else{
+    nav.classList.remove('scrolled');
+  }
+});
+
+// SCROLL PROGRESS + ACTIVE NAV STATE
+const progressBar=document.getElementById('scrollProgress');
+const navLinks=document.querySelectorAll('nav .nl');
+const sectionTargets=[...navLinks]
+  .map(link=>document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+function updateUiStates(){
+  const h=document.documentElement;
+  const max=h.scrollHeight-h.clientHeight;
+  const p=max>0?(h.scrollTop/max)*100:0;
+  if(progressBar) progressBar.style.width=p+'%';
+
+  let currentId='';
+  sectionTargets.forEach(sec=>{
+    if(window.scrollY>=sec.offsetTop-130) currentId=sec.id;
+  });
+  navLinks.forEach(link=>{
+    link.classList.toggle('active', link.getAttribute('href')==='#'+currentId);
+  });
+}
+window.addEventListener('scroll',updateUiStates,{passive:true});
+window.addEventListener('load',updateUiStates);
+
+function sendToWhatsApp() {
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const service = document.getElementById("service").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (!name || !phone || !service) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  const text = `Hi Manikandan, I want to discuss a project.
+
+Name: ${name}
+Phone: ${phone}
+Service: ${service}
+Message: ${message}`;
+
+  const url = `https://wa.me/919940909972?text=${encodeURIComponent(text)}`;
+  window.open(url, "_blank");
+}
+</script>
+</body>
+</html>
+
+
+
+
+
