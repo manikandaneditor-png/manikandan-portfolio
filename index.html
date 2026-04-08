@@ -6,6 +6,7 @@
 <title>Manikandan | Creative Editor & Digital Freelancer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -58,6 +59,11 @@ body::after{
   background-image:radial-gradient(rgba(255,255,255,.7) .45px, transparent .45px);
   background-size:3px 3px;
 }
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+}
 
 /* CURSOR - desktop only */
 @media(hover:hover){
@@ -108,72 +114,212 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
 /* HERO */
 .hero{
   position:relative;
+  width:100vw;
   height:100vh;
+  display:flex;
   overflow:hidden;
-  background:
-    radial-gradient(1000px 620px at 82% 22%, rgba(255,255,255,.05), transparent 64%),
-    linear-gradient(180deg, #040507 0%, #07080b 48%, #050608 100%);
+  background:#000;
+  color:#fff;
 }
-#cv{position:absolute;top:0;left:0;width:56%;height:100%;pointer-events:none;z-index:1;opacity:.58;}
-.hero-img{
-  position:absolute;
-  top:0;
-  right:0;
-  width:50%;
-  height:100%;
-  max-width:600px;
-  object-fit:contain;
-  object-position:right center;
-  opacity:.95;
-  filter:contrast(1.35) saturate(1.1) brightness(.95);
-  z-index:0;
-}
-.hero::before{
-  content:'';
+#bg-animation{
   position:absolute;
   inset:0;
-  pointer-events:none;
   z-index:1;
-  background:
-    radial-gradient(70% 70% at 82% 22%, rgba(255,255,255,.05), transparent 66%),
-    radial-gradient(82% 82% at 18% 30%, rgba(255,255,255,.03), transparent 70%),
-    linear-gradient(110deg, rgba(5,8,14,.3), transparent 52%);
+  opacity:.4;
+  pointer-events:none;
+}
+.hero::before,
+.overlay{
+  display:none !important;
+}
+.hero-left,
+.hero-content{
+  position:relative;
+  z-index:3;
+  padding:100px 0;
+  max-width:700px;
+  flex:1;
+  margin-left:8%;
+}
+.hero-content > *{
+  margin-bottom:18px;
+}
+.tagline{
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#888;
+  margin-bottom:10px;
+}
+.line{
+  width:40px;
+  height:3px;
+  background:#00ff88;
+  margin:20px 0;
+}
+.hero h1{
+  font-size:90px;
+  font-weight:800;
+  letter-spacing:-1px;
+  line-height:1;
+  margin:0;
+  max-width:480px;
+}
+.hero-title span{
+  display:inline-block;
+  overflow:hidden;
+  position:relative;
+}
+.hero-title span::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#0a0a0a;
+  animation:reveal 1.2s ease forwards;
+}
+.hero p{
+  font-size:16px;
+  line-height:1.6;
+  color:#aaa;
+  max-width:520px;
+  margin-bottom:18px;
+}
+.hero .sub{
+  font-size:14px;
+  color:#666;
+  margin-top:10px;
+}
+.stats{
+  display:flex;
+  gap:40px;
+  margin-top:30px;
+}
+.buttons{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+.primary,
+.secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 20px;
+  border-radius:25px;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  text-decoration:none;
+  font-weight:600;
+  transition:transform .22s ease, box-shadow .22s ease, opacity .25s ease;
+}
+.primary{
+  background:#00c853;
+  color:#fff;
+}
+.secondary{
+  background:#222;
+  color:#ccc;
+}
+.primary:hover,
+.secondary:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(0,0,0,.28);
+}
+.stats h2{
+  font-size:32px;
+  font-weight:700;
+}
+.stats span{
+  font-size:12px;
+  color:#777;
+  letter-spacing:1px;
+}
+.btn-primary{
+  background:#22c55e;
+  color:white;
+  padding:14px 26px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:500;
+}
+.btn-secondary{
+  background:#1a1a1a;
+  color:#ccc;
+  padding:14px 26px;
+  border-radius:30px;
+  font-size:14px;
+}
+.hero-right{
+  position:relative;
+  z-index:2;
+  flex:1;
+  margin:0;
+  padding:0;
+  overflow:hidden;
 }
 .hero::after{
-  content:'';
+  content:"";
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background:
-    radial-gradient(circle at 52% 45%, transparent 40%, rgba(0,0,0,.45) 88%),
-    linear-gradient(to right, rgba(3,6,14,.72) 0%, rgba(3,6,14,.36) 46%, rgba(3,6,14,.12) 74%, rgba(3,6,14,0) 100%);
+  inset:0;
+  background:radial-gradient(
+    circle at left center,
+    rgba(0,0,0,0.6),
+    transparent 60%
+  );
+  pointer-events:none;
+  z-index:1;
+}
+.hero-right::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  width:32%;
+  backdrop-filter:blur(6px);
+  background:linear-gradient(
+    to right,
+    #000 0%,
+    #000 15%,
+    rgba(0,0,0,0.7) 35%,
+    rgba(0,0,0,0.3) 60%,
+    transparent 100%
+  );
+  filter:brightness(0.95);
+  pointer-events:none;
+  z-index:2;
+}
+.hero-right::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right, rgba(0,0,0,0.3), transparent);
   z-index:1;
   pointer-events:none;
 }
-.hc{position:relative;z-index:3;width:50%;padding:80px;}
-.htag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;margin-bottom:1.5rem;opacity:.8;animation:up .7s ease forwards .15s;}
-.hname{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(4.7rem,12.1vw,13.2rem);
-  font-weight:700;line-height:.88;letter-spacing:-.03em;
-  color:var(--white);
-  opacity:0;animation:up .9s ease forwards .3s;
-}
-.hname::after{
-  content:'';
+.hero-right img{
+  width:100%;
+  height:110%;
+  object-fit:cover;
   display:block;
-  width:78px;
-  height:4px;
-  margin-top:12px;
-  background:linear-gradient(90deg, var(--accent-lime), rgba(200,240,0,0));
+  filter:contrast(1.1) brightness(0.9);
+  opacity:.8;
+  position:relative;
+  z-index:1;
+  will-change:transform, filter;
+  transform-origin:center right;
+  transform:scale(1.05) translateX(10px);
+  transition:transform .8s ease;
 }
+.hero:hover .hero-right img{
+  transform:scale(1.08);
+}
+.htag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;margin-bottom:1.5rem;opacity:.8;animation:up .7s ease forwards .15s;}
 .hdesc,.htagline{
   color:#e0e0e0;
   font-size:18px;
   line-height:1.6;
-  max-width:500px;
+  max-width:520px;
   margin-top:1.3rem;
   opacity:0;animation:up .8s ease forwards .48s;
   font-weight:300;
@@ -191,9 +337,11 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
 .slot-note{
   margin-top:10px;
   font-size:12px;
-  color:var(--muted-2);
+  color:rgba(255,255,255,0.5);
   letter-spacing:.08em;
-  text-transform:uppercase;
+  text-transform:none;
+  font-weight:400;
+  opacity:.8;
 }
 .hfoot{display:flex;align-items:flex-end;justify-content:space-between;margin-top:2.6rem;opacity:0;animation:up .8s ease forwards .6s;flex-wrap:wrap;gap:2rem;}
 .hstats{display:flex;gap:3rem;flex-wrap:wrap;}
@@ -286,7 +434,7 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
 .who-desc{font-size:12px;color:var(--muted-2);line-height:1.8;}
 
 /* CASE STUDY */
-.cs-wrap{background:var(--panel);border:1px solid var(--line);padding:3rem;border-radius:var(--card-radius);box-shadow:var(--shadow-soft);}
+.cs-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:3rem;border-radius:var(--card-radius);box-shadow:0 16px 40px rgba(0,0,0,.35);backdrop-filter:blur(18px);}
 .cs-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--line);}
 .cs-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:500;color:var(--white);margin-bottom:.5rem;line-height:1.1;}
 .cs-client{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-blue);margin-bottom:1.2rem;}
@@ -308,11 +456,11 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
 /* TESTIMONIALS */
 .testimonials{padding:80px 20px;text-align:center;}
 .testimonials h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:500;color:var(--white);margin-bottom:24px;}
-.testimonial{max-width:600px;margin:20px auto;color:#ccc;border:1px solid var(--line);padding:20px;background:var(--panel);border-radius:var(--card-radius);}
+.testimonial{max-width:600px;margin:20px auto;color:#ccc;border:1px solid rgba(255,255,255,.08);padding:20px;background:rgba(255,255,255,.04);border-radius:var(--card-radius);backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
 .testimonial p{line-height:1.8;}
 .testimonial span{display:block;margin-top:10px;font-size:12px;color:var(--muted);letter-spacing:.05em;}
 .pricing{padding:80px 20px;text-align:center;}
-.price-card{border:1px solid #333;padding:30px;margin:20px;}
+.price-card{border:1px solid rgba(255,255,255,.08);padding:30px;margin:20px;background:rgba(255,255,255,.04);border-radius:var(--card-radius);backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
 
 /* WHAT I DO BEST */
 .what-best{
@@ -341,7 +489,16 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
   line-height:1.7;
   max-width:700px;
 }
-.highlight{background:#ffcc00;color:#000;padding:2px 6px;border-radius:4px;}
+.highlight{
+  font-size:16px;
+  font-weight:600;
+  color:#ddd;
+  max-width:580px;
+  line-height:1.6;
+  margin-top:20px;
+  border-left:3px solid #22c55e;
+  padding-left:14px;
+}
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(30px);}
   to{opacity:1;transform:translateY(0);}
@@ -397,7 +554,7 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
   margin-bottom:30px;
 }
 .service-box{
-  background:var(--panel);
+  background:rgba(255,255,255,0.04);
   border-radius:var(--card-radius);
   padding:50px;
   margin-bottom:40px;
@@ -405,7 +562,9 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
   transform:translateY(50px);
   transition:.6s ease;
   display:block;
-  border:1px solid rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(0,0,0,.35);
 }
 .service-box.active{
   opacity:1;
@@ -436,14 +595,14 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
 
 /* CERTIFICATIONS */
 .certifications{padding:70px 20px 20px;}
-.cert-wrap{max-width:1240px;margin:0 auto;border:1px solid var(--line);padding:28px;background:var(--panel);border-radius:var(--card-radius);}
+.cert-wrap{max-width:1240px;margin:0 auto;border:1px solid rgba(255,255,255,.08);padding:28px;background:rgba(255,255,255,.04);border-radius:var(--card-radius);backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
 .cert-title{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;color:var(--white);margin-bottom:10px;}
 .cert-text{color:var(--muted-2);font-size:13px;line-height:1.8;}
 
 /* VIDEO SAMPLES */
 .samples{padding:70px 20px;}
 .samples-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.sample-card{border:1px solid var(--line);padding:24px;background:var(--panel);text-decoration:none;color:inherit;border-radius:var(--card-radius);box-shadow:var(--shadow-soft);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
+.sample-card{border:1px solid rgba(255,255,255,.08);padding:24px;background:rgba(255,255,255,.04);text-decoration:none;color:inherit;border-radius:var(--card-radius);box-shadow:0 16px 40px rgba(0,0,0,.35);backdrop-filter:blur(18px);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
 .sample-card:hover{transform:translateY(-4px);border-color:var(--line-strong);}
 .sample-card h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;color:var(--white);margin-bottom:8px;}
 .sample-card p{font-size:12px;color:var(--muted-2);line-height:1.7;}
@@ -509,7 +668,7 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
 .pricing-sec{padding:70px 20px;}
 .pricing-wrap{max-width:1240px;margin:0 auto;}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.price-card{border:1px solid var(--line);padding:28px;background:var(--panel);border-radius:var(--card-radius);}
+.price-card{border:1px solid rgba(255,255,255,.08);padding:28px;background:rgba(255,255,255,.04);border-radius:var(--card-radius);backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
 .price-name{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--white);}
 .price-value{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:var(--white);margin:10px 0 14px;}
 .price-desc{font-size:12px;color:var(--muted);line-height:1.7;}
@@ -541,10 +700,11 @@ nav.scrolled{top:20px;left:50%;right:auto;transform:translateX(-50%);width:auto;
 }
 .social-links a{margin-right:15px;color:#aaa;text-decoration:none;border:none;padding:0;font-size:14px;letter-spacing:0;text-transform:none;}
 .social-links a:hover{color:#fff;}
-.floating-cta{
+.floating-cta,
+.chat-btn{
   position:fixed;
-  bottom:20px;
   right:20px;
+  bottom:20px;
   background:#25d366;
   color:#fff;
   padding:14px 18px;
@@ -648,8 +808,17 @@ footer p:first-child{
 /* ANIMS */
 @keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes reveal{0%{transform:translateX(0)}100%{transform:translateX(100%)}}
 .r{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease;}
 .r.in{opacity:1;transform:none;}
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.04;
+  background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+  z-index:9999;
+}
 
 /* MOBILE */
 @media(max-width:1024px){
@@ -664,22 +833,42 @@ footer p:first-child{
   .why-grid{grid-template-columns:1fr 1fr;}
   .rb-item+.rb-item{border-left:none;border-top:1px solid var(--line);}
 }
-@media(max-width:768px){
+  @media(max-width:768px){
   nav{padding:1.2rem 1.2rem;}
   nav.scrolled{top:12px;left:12px;right:12px;transform:none;width:auto;padding:1rem;border-radius:18px;}
   .nl{display:none;}
   .nav-r{gap:8px;}
   .nb,.wa-btn{padding:8px 14px;font-size:10px;}
-  .hero{height:100svh;}
-  #cv{display:none;}
-  .hero-img{width:100%;height:100%;right:0;left:auto;top:0;transform:none;opacity:.38;}
-  .hc{width:100%;padding:80px 20px 24px;}
-  .hname{font-size:clamp(3.4rem,16vw,7rem);line-height:.9;}
-  .htagline{font-size:14px;max-width:100%;}
-  .hero::before{background:linear-gradient(to bottom,rgba(4,4,6,.28) 0%,rgba(4,4,6,.92) 72%);}
-  .hero::after{display:none;}
+    .hero{
+      height:auto;
+      min-height:100svh;
+      display:flex;
+      flex-direction:column;
+    }
+  #bg-animation{opacity:.25;}
+    .hero-right{
+      display:block !important;
+      width:100%;
+      height:300px;
+      order:-1;
+    }
+    .hero-right img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .hero-left,.hero-content{padding:40px 20px;max-width:100%;margin-left:0;}
+    .hero h1{font-size:38px;line-height:1.1;}
+    .hero p{font-size:16px;}
+    .desc{font-size:14px;max-width:100%;}
+    .hero::before{display:none;}
   .hstats{gap:1.5rem;}
   .stat-n{font-size:1.8rem;}
+  .stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
   .wrap{padding:0 1.2rem;}
   .sec{padding:4.5rem 0;}
   .sh{grid-template-columns:1fr;gap:1.5rem;}
@@ -699,8 +888,8 @@ footer p:first-child{
   .rb-item+.rb-item{border-left:none;border-top:1px solid var(--line);}
   footer{flex-direction:column;text-align:center;padding:1.5rem 1.2rem;}
   .scroll-hint{display:none;}
-  .hero-ctas{margin-top:1.5rem;}
-  .hero-ctas .nb,.hero-ctas .wa-btn{padding:12px 20px;font-size:12px;}
+    .buttons{margin-top:1.5rem;}
+    .buttons .primary,.buttons .secondary{padding:12px 20px;font-size:12px;}
   .ct-ctas .wa-btn,.ct-ctas .nb{
     width:100%;
     text-align:center;
@@ -711,8 +900,9 @@ footer p:first-child{
   .what-best{padding:80px 20px;}
   .wb-title{font-size:clamp(2.2rem,10vw,3.2rem);}
   .wb-desc{font-size:16px;max-width:100%;}
-  .floating-cta{bottom:14px;right:14px;padding:12px 16px;font-size:12px;}
-}
+    .floating-cta,
+    .chat-btn{bottom:14px;right:14px;padding:12px 16px;font-size:12px;}
+  }
 </style>
 </head>
 <body>
@@ -735,34 +925,38 @@ footer p:first-child{
 
 <!-- HERO -->
 <section class="hero">
-  <canvas id="cv"></canvas>
-  <div class="hc">
-    <p class="htag">Creative Strategist for Growth-Focused Brands</p>
-    <h1 class="hname">Manikandan</h1>
-    <p class="htagline">I build high-converting creatives for healthcare brands, education businesses, and local services - turning content into enquiries, patients, and revenue.</p>
-    <p class="hero-subtle">Most brands post content. I build systems that generate responses.</p>
-    <p class="hero-proof">Worked with healthcare brands, creators & local businesses | 4+ years in editing, content & performance-driven creatives</p>
-    <div class="hfoot">
-      <div class="hstats">
+  <canvas id="bg-animation"></canvas>
+    <div class="hero-content">
+      <p class="tagline">CREATIVE STRATEGIST FOR GROWTH-FOCUSED BRANDS</p>
+      <h1 class="title hero-title" data-aos="fade-up">
+        <span>Manikandan</span>
+      </h1>
+      <div class="line"></div>
+      <p class="desc" data-aos="fade-up" data-aos-delay="200">I craft high-converting creative systems for healthcare, education, and local services — turning content into enquiries, patients, and revenue.</p>
+      <p class="sub" data-aos="fade-up" data-aos-delay="300">Most brands post content. I build response engines.</p>
+      <p class="highlight" data-aos="fade-up" data-aos-delay="400">Trusted by healthcare brands, creators & local businesses | 4+ years in editing, content & performance creatives</p>
+      <div class="buttons" data-aos="fade-up" data-aos-delay="500"><a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="primary" target="_blank" rel="noopener">DISCUSS YOUR PROJECT</a><a href="mailto:dhonimani7mdu@gmail.com?subject=Creative%20Support" class="secondary">GET CREATIVE SUPPORT</a></div>
+      <p class="slot-note">Limited client slots available this month.</p>
+      <div class="stats" data-aos="fade-up" data-aos-delay="600">
         <div>
-          <span class="stat-n">4+</span>
-          <span class="stat-l">Years Experience</span>
+          <h2>4+</h2>
+          <span>Years Experience</span>
         </div>
         <div>
-          <span class="stat-n">5+</span>
-          <span class="stat-l">Industries Worked</span>
+          <h2>5+</h2>
+          <span>Industries Worked</span>
         </div>
         <div>
-          <span class="stat-n">100+</span>
-          <span class="stat-l">Creative Deliverables</span>
+          <h2>100+</h2>
+          <span>Creative Deliverables</span>
         </div>
       </div>
+      <p class="insta-link" style="margin-top:18px;">See examples on Instagram →</p>
+      <a href="https://www.instagram.com/manikandan._editor/" target="_blank" class="insta-link" rel="noopener">View My Instagram →</a>
     </div>
-    <div class="hero-ctas"><a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="wa-btn" target="_blank" rel="noopener">Discuss Your Project</a><a href="mailto:dhonimani7mdu@gmail.com?subject=Creative%20Support" class="nb">Get Creative Support</a></div>
-    <p class="slot-note">⚠ Currently working with limited brands only - 2-3 slots available this month.</p>
-    <a href="https://www.instagram.com/manikandan._editor/" target="_blank" class="insta-link" rel="noopener">View My Instagram →</a>
+    <div class="hero-right">
+    <img src="manikandan.jpg" alt="Manikandan portrait">
   </div>
-  <img src="manikandan.jpg" class="hero-img" alt="Manikandan portrait">
   <div class="scroll-hint">
     <span>Scroll</span>
     <div class="sline"></div>
@@ -835,9 +1029,9 @@ footer p:first-child{
     <div class="sh r">
       <div>
         <span class="stag">// Projects</span>
-        <h2 class="stitle">Creative campaigns<br>and content execution.</h2>
+        <h2 class="stitle">Creative campaigns<br>with measurable response.</h2>
       </div>
-      <p class="sbody">Selected projects focused on creative quality, audience engagement, and campaign consistency.</p>
+      <p class="sbody">Selected projects where creative strategy improved response quality and consistency.</p>
     </div>
 
     <div class="cs-wrap r">
@@ -845,20 +1039,20 @@ footer p:first-child{
         <div>
           <div class="cs-client">// Featured Project</div>
           <div class="cs-title">Healthcare Campaign</div>
-          <p style="font-size:13px;color:var(--muted);margin-top:.75rem;line-height:1.8;">Structured creative strategy focused on enquiries and response quality for a hospital brand.</p>
+          <p style="font-size:13px;color:var(--muted);margin-top:.75rem;line-height:1.8;">Creative system for a hospital brand focused on enquiry quality and fast response.</p>
         </div>
         <div>
           <div class="cs-step">
             <span class="cs-step-num">Problem</span>
-            <p class="cs-step-desc">Low patient enquiries despite regular posting.</p>
+            <p class="cs-step-desc">Low patient enquiries despite consistent posting.</p>
           </div>
           <div class="cs-step" style="margin-top:10px;">
             <span class="cs-step-num">Action</span>
-            <p class="cs-step-desc">Created hook-based video creatives with a clear WhatsApp CTA.</p>
+            <p class="cs-step-desc">Built hook-led videos with WhatsApp-first CTAs and rapid follow-up flow.</p>
           </div>
           <div class="cs-step" style="margin-top:10px;">
             <span class="cs-step-num">Result</span>
-            <p class="cs-step-desc">↑ 2x enquiry volume within 30 days.<br>↓ Cost per enquiry improved.</p>
+            <p class="cs-step-desc">2× enquiry volume within 30 days.<br>Cost per enquiry reduced.</p>
           </div>
         </div>
       </div>
@@ -868,33 +1062,42 @@ footer p:first-child{
     <div class="cs-wrap r" style="margin-top:2rem;">
       <div class="cs-client">// Additional Case Study</div>
       <div class="cs-title">Dental Campaign</div>
-      <p class="cs-step-desc" style="margin-top:.6rem;">Designed and executed localized content and creatives focused on patient awareness and action.</p>
+      <p class="cs-step-desc" style="margin-top:.6rem;">Localized creatives that improved treatment enquiries and intent.</p>
     </div>
 
     <div class="cs-wrap r" style="margin-top:2rem;">
       <div class="cs-client">// Additional Case Study</div>
       <div class="cs-title">Ayurveda Wellness Campaign</div>
-      <p class="cs-step-desc" style="margin-top:.6rem;">Created consistent consultation content with offer-driven creatives and retargeting support.</p>
+      <p class="cs-step-desc" style="margin-top:.6rem;">Offer-led content and retargeting to stabilize consultation enquiries.</p>
     </div>
 
-    <div class="cs-wrap r" style="margin-top:2rem;">
-      <div class="cs-client">// Additional Case Study</div>
-      <div class="cs-title">G.B Public School - Admissions Campaign</div>
-      <p class="cs-step-desc" style="margin-top:.6rem;">Produced parent-focused creatives and campaign content to improve admissions visibility and response quality.</p>
-      <img src="ads-proof.png" class="proof-img" alt="School campaign project proof">
-      <p style="color:#888;font-size:12px;margin-top:10px;">Real project snapshot (sensitive details hidden)</p>
-    </div>
-
-    <section class="testimonials r">
+      <div class="cs-wrap r" style="margin-top:2rem;">
+        <div class="cs-client">// Additional Case Study</div>
+        <div class="cs-title">G.B Public School - Admissions Campaign</div>
+        <p class="cs-step-desc" style="margin-top:.6rem;">Parent-focused creatives that lifted admission enquiries and response quality.</p>
+        <img src="ads-proof.png" class="proof-img" alt="School campaign project proof">
+        <p style="color:#888;font-size:12px;margin-top:10px;">Real project snapshot (sensitive details hidden)</p>
+      </div>
+      <div class="cs-wrap r" style="margin-top:2rem;">
+        <div class="cs-client">// Next Step</div>
+        <div class="cs-title">Want results like this?</div>
+        <p class="cs-step-desc" style="margin-top:.6rem;">Share your goal and I’ll recommend the right creative approach before you commit.</p>
+        <div class="buttons" style="margin-top:18px;">
+          <a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="primary" target="_blank" rel="noopener">DISCUSS YOUR PROJECT</a>
+          <a href="mailto:dhonimani7mdu@gmail.com?subject=Creative%20Support" class="secondary">GET CREATIVE SUPPORT</a>
+        </div>
+      </div>
+  
+      <section class="testimonials r">
       <h2>Client Feedback</h2>
-      <div class="testimonial">
-        <p>"We started getting consistent patient enquiries after working with him."</p>
-        <span>— Client</span>
-      </div>
-      <div class="testimonial">
-        <p>"Creatives actually brought leads — not just views."</p>
-        <span>— Business Owner</span>
-      </div>
+        <div class="testimonial">
+          <p>"Patient enquiries became consistent within weeks."</p>
+          <span>— Hospital Marketing Team</span>
+        </div>
+        <div class="testimonial">
+          <p>"Creatives drove real enquiries, not just views."</p>
+          <span>— Local Business Owner</span>
+        </div>
     </section>
   </div>
 </div>
@@ -1146,6 +1349,7 @@ From hospitals to schools, my focus is simple: improve creative quality, strengt
   </div>
 </div>
 <a href="https://wa.me/919940909972?text=Hi%20Manikandan%2C%20I%20want%20to%20discuss%20my%20project." class="floating-cta" target="_blank" rel="noopener">Chat Now</a>
+<div class="noise"></div>
 <div class="social-links">
   <a href="https://www.instagram.com/manikandan._editor/" target="_blank" rel="noopener">Instagram</a>
   <a href="https://wa.me/919940909972" target="_blank" rel="noopener">WhatsApp</a>
@@ -1155,8 +1359,13 @@ From hospitals to schools, my focus is simple: improve creative quality, strengt
   <p>Madurai, India</p>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
 // CURSOR (desktop only)
 if(window.matchMedia('(hover:hover)').matches){
   const c=document.getElementById('c'),cr=document.getElementById('cr');
@@ -1168,7 +1377,7 @@ if(window.matchMedia('(hover:hover)').matches){
 
 // THREE.JS
 (function(){
-  const canvas=document.getElementById('cv');
+  const canvas=document.getElementById('bg-animation');
   if(!canvas)return;
   const par=canvas.parentElement;
   let W=par.offsetWidth*.58,H=par.offsetHeight;
@@ -1252,6 +1461,25 @@ window.addEventListener("scroll",()=>{
   });
 });
 
+// MAGNETIC BUTTONS (desktop only)
+if(window.matchMedia('(hover:hover)').matches){
+  const magnets=document.querySelectorAll('.primary,.secondary,.wa-btn,.nb,.floating-cta');
+  magnets.forEach((el)=>{
+    el.classList.add('magnet');
+    el.style.willChange='transform';
+    const strength=0.35;
+    el.addEventListener('mousemove',(e)=>{
+      const rect=el.getBoundingClientRect();
+      const x=(e.clientX-rect.left-rect.width/2)*strength;
+      const y=(e.clientY-rect.top-rect.height/2)*strength;
+      el.style.transform=`translate(${x}px, ${y}px)`;
+    });
+    el.addEventListener('mouseleave',()=>{
+      el.style.transform='translate(0,0)';
+    });
+  });
+}
+
 window.addEventListener('scroll',function(){
   const nav=document.querySelector('nav');
   if(!nav)return;
@@ -1262,6 +1490,25 @@ window.addEventListener('scroll',function(){
     nav.classList.remove('scrolled');
   }
 });
+
+// SCROLL-TRIGGERED ZOOM + BLUR SYNC (hero image)
+const heroImg=document.querySelector('.hero-right img');
+let heroTick=false;
+window.addEventListener('scroll',()=>{
+  if(!heroImg || heroTick) return;
+  heroTick=true;
+  requestAnimationFrame(()=>{
+    const max=500;
+    const sc=Math.min(window.scrollY, max);
+    const pct=sc/max;
+    const blur=(pct*6).toFixed(2);
+    const translate=(pct*24).toFixed(2);
+    const scale=(1.05 + pct*0.08).toFixed(3);
+    heroImg.style.transform=`translateY(${translate}px) scale(${scale})`;
+    heroImg.style.filter=`blur(${blur}px) contrast(1.1) brightness(0.9)`;
+    heroTick=false;
+  });
+},{passive:true});
 
 // SCROLL PROGRESS + ACTIVE NAV STATE
 const progressBar=document.getElementById('scrollProgress');
