@@ -1052,7 +1052,19 @@ footer p:first-child{
   .why-grid{grid-template-columns:1fr 1fr;}
   .rb-item+.rb-item{border-left:none;border-top:1px solid var(--line);}
 }
-  @media(max-width:768px){
+@media(max-width:768px){
+  .intro-screen{
+    transition:opacity .45s ease, visibility .45s ease;
+  }
+  .intro-inner{
+    gap:12px;
+  }
+  .intro-screen .intro-name,
+  .intro-screen .intro-kicker,
+  .intro-screen .intro-line,
+  .intro-screen .intro-sub{
+    animation-duration:.45s;
+  }
   nav{
     top:10px;
     left:10px;
@@ -2064,9 +2076,10 @@ Message: ${message}`;
 window.addEventListener('load',()=>{
   const intro=document.getElementById('introScreen');
   if(!intro) return;
+  const introDelay=window.innerWidth<=768 ? 650 : 1800;
   setTimeout(()=>{
     intro.classList.add('hide');
-  },1800);
+  },introDelay);
 });
 
 // MOBILE HERO IMAGE RESET
